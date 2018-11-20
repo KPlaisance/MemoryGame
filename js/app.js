@@ -9,6 +9,12 @@ let time = 0;
 let clockId;
 let matched = 1;
 let firstGame = true;
+
+// Adds an event listener on the reset button that resets and re-shuffles the game
+document.querySelector('.restart').addEventListener('click', resetGame);
+
+resetCards();
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -23,8 +29,6 @@ let firstGame = true;
         deck.appendChild(card);
     }
 }
- shuffleDeck();
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -40,7 +44,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -52,7 +55,6 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- 
  let toggledCards = [];
 
     deck.addEventListener('click', event => {
@@ -173,7 +175,7 @@ function shuffle(array) {
             toggleModal();
         });
 
-        document.querySelector('.restart').addEventListener('click', resetGame);
+        
         document.querySelector('.modal_replay').addEventListener('click', replayGame);
     }
 
@@ -197,10 +199,6 @@ function shuffle(array) {
             }
         }
         return starCount;
-    }
-
-    function resetGame() {
-        resetClockAndTime();
     }
 
     function resetMoves() {
@@ -260,4 +258,3 @@ function shuffle(array) {
         writeModalStats();
         toggleModal();
     }
-

@@ -7,13 +7,15 @@ let moves = 0;
 let clockOff = true;
 let time = 0;
 let clockId;
-let matched = 1;
+let matched = 0;
 let firstGame = true;
 
 // Adds an event listener on the reset button that resets and re-shuffles the game
 document.querySelector('.restart').addEventListener('click', resetGame);
 
-resetCards();
+if(firstGame){
+    resetCards();
+}
 
 /*
  * Display the cards on the page
@@ -71,7 +73,6 @@ function shuffle(array) {
                 checkForMatch(clickTarget);
                 addMove();
                 checkScore();
-                console.log(matched);
                 if (firstGame) {
                     if (matched === TOTAL_PAIRS) {
                         gameOver();
@@ -81,7 +82,6 @@ function shuffle(array) {
                         gameOver();
                     }
                 }
-
             }
         }
 
@@ -149,7 +149,6 @@ function shuffle(array) {
         clockId = setInterval(() => {
             time++;
             displayTime();
-            console.log(time);
         }, 1000);
     }
 
@@ -220,6 +219,9 @@ function shuffle(array) {
         resetStars();
         shuffleDeck();
         resetCards();
+        firstGame = false;
+        matched = 0;
+        toggledCards = [];
     }
 
     function resetClockAndTime() {
@@ -241,9 +243,8 @@ function shuffle(array) {
 
     function replayGame() {
         resetGame();
+        writeModalStats();
         toggleModal();
-        firstGame = false;
-        matched = 0;
     }
 
     function resetCards(){
